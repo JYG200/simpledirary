@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRef,useState } from 'react';
 
-const DiaryEditor = () => {
+const DiaryEditor = ({onCreate}) => {
     const authorInput = useRef();
     const contentInput = useRef();
 
@@ -19,6 +19,7 @@ const DiaryEditor = () => {
     };
 
     const handleSubmit = () =>{
+        //최소 글자 수 제한  
         if(state.author.length < 1){
             authorInput.current.focus();
             return;
@@ -27,7 +28,13 @@ const DiaryEditor = () => {
             contentInput.current.focus();
             return;
         }
+        onCreate(state.author, state.content, state.emotion);
         alert("저장 성공");
+        setState({
+            author: "",
+            content: "",
+            emotion: 1,
+        });
     };
     return (
         <div className='DiaryEditor'>
